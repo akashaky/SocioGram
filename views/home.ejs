@@ -1,13 +1,32 @@
-<html>
-    <head>
-        <title>
-            <%= title %>
-        </title>
+ <title> <%= title %> </title>
         <%- include('_header') -%>
-    </head>
-    <body>
+  
         <h2>SocioGram Home Page</h2>
 
+        <section id="new-feeds">
+            <h4>Posts</h4>
+            <% if(locals.user) { %> 
+            <form action="/posts/create" id="new-feed-form" method="POST">
+                <textarea name="content"  cols="40" rows="5" placeholder="Add your post here"></textarea>
+                <input type="submit" value="Post">
+            </form>
+            <% } %>
+
+            <div id="post-list-container">
+                <ul>
+                    <% for(post of posts) {%>
+                        <li>
+                            <%= post.content %>
+                            <br>
+                            <small>
+                                <%= post.user.name %>
+
+                            </small>
+                        </li>
+                    <%} %>
+                </ul>
+            </div>
+
+        </section>
+
         <%- include('_footer') -%>
-    </body>
-</html>

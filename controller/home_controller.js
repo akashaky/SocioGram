@@ -1,3 +1,4 @@
+const Post = require('../models/post');
 
 module.exports.home = function(req, res){
     /*to read cookie from browser
@@ -6,7 +7,13 @@ module.exports.home = function(req, res){
     res.cookie('user_id',100);
     */
 
-    res.render('home',{
-        title: 'SocioGram | Home'
-    });
+ 
+//populating user of each post
+    Post.find({}).populate('user').exec(function(err, posts){
+        res.render('home',{
+            title: 'SocioGram | Home',
+            posts: posts
+        });
+    }) 
+ 
 }
