@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports.home = function(req, res){
     /*to read cookie from browser
@@ -18,10 +19,15 @@ module.exports.home = function(req, res){
         }
     })
     .exec(function(err, posts){
-        res.render('home',{
-            title: 'SocioGram | Home',
-            posts: posts
+        User.find({}, function(err, users){
+            res.render('home',{
+                title: 'SocioGram | Home',
+                posts: posts,
+                all_users: users
+            });
+
         });
-    }) 
+      
+    }) ;
  
 }
