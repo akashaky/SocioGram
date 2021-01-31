@@ -18,10 +18,14 @@ module.exports.profile = function(req, res){
 module.exports.update = function(req, res){
     if(req.params.id == req.user.id){
         User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+            req.flash('success', 'Profile Updated');
             return res.redirect('back');
+            
         });
     }else{
+        req.flash('error', 'Unauthorized User');
         return res.status(401).send('Unauthorized');
+       
     }
 }
 
@@ -45,6 +49,7 @@ module.exports.signIn = function(req, res){
 // creating the user 
 module.exports.create = function(req, res){
     if(req.body.password != req.body.confirm_password){
+        req.flash('error', 'Password does not mateched');
         return res.redirect('back');
     }
     User.findOne({email: req.body.email}, function(err, user){
@@ -57,20 +62,23 @@ module.exports.create = function(req, res){
                     console.log('Error while creating the user');
                    return;
                 }
+                  req.flash('success', 'Your account has been created successfully');
                 return res.redirect('/users/sign-in');
             });
         }else
-        
+        req.flash('error', 'User with this email id already exists');
         res.redirect('back');
     });
 }
 
 
 module.exports.createSession = function(req, res){
+    req.flash('success', 'Logged in Successfully');
     return res.redirect('/');
 }
 
 module.exports.destorySession = function(req, res){
     req.logout();
+    req.flash('success', 'Logged out Successfully');
     return res.redirect('/');
 }

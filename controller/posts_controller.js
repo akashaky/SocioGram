@@ -8,9 +8,10 @@ module.exports.create = function(req, res){
         user: req.user._id
     }, function(err, post){
         if(err){
-            console.log("Error in creating post");
+            req.flash('error', 'Error in publishing your post');
             return;
         }
+        req.flash('success', 'Your Post is Publised !!');
         return res.redirect('back');
     });
 
@@ -21,9 +22,11 @@ module.exports.destroy = function(req, res){
         if(post.user == req.user.id){
             post.remove();
             Comment.deleteMany({post: req.params.id}, function(err){
+                req.flash('success', 'Your Post and comment related to it is deleted');
                 return res.redirect('back');
             });
        }else{
+           req.flash('error', 'Error in deleting post');
            return res.redirect('back');
        }
     });

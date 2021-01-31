@@ -1,6 +1,14 @@
-<link rel="stylesheet" href="/css/header.css">
+<head>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js
 
-<h3>SocioGram - Let's connect </h3>
+
+
+    "></script>
+</head>
+<body>
+    <h3>SocioGram - Let's connect </h3>
 <% if(locals.user) { %>
         
     <li>
@@ -22,3 +30,32 @@
 </ul>
 
 </ul>
+
+<script>
+
+    <% if(flash.success && flash.success.length > 0 ){%>
+    
+    new Noty({
+        theme :'relax',
+        text : "<%= flash.success %>",
+        type: 'success',
+        layout:' topRight',
+        timeOut: 1500
+    }).show();
+    <% } %>
+
+    <% if(flash.error && flash.error.length > 0 ){%>
+    
+    new Noty({
+        theme :'relax',
+        text : "<%= flash.error %>",
+        type: 'error',
+        layout:' topRight',
+        timeOut: 1500
+    }).show();
+    <% } %>
+    
+</script>
+    
+</body>
+

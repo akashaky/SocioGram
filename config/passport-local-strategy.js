@@ -6,17 +6,18 @@ const User = require('../models/user');
 //Find the user and establish the session
 passport.use(new LocalStrategy({
     //usernameFielid is keyword, use to detect the unique attribute to idrntify the user 
-    usernameField: 'email'
-}, function(email, password, done){
+    usernameField: 'email',
+    passReqToCallback: true
+}, function(req, email, password, done){
     //find the user and establish the session
     //done is a function
     User.findOne({email: email}, function(err, user){
         if(err){
-            console.log('Error in founding the user');
+            req.flash('error', 'Error in finding error')
             return done(err);
         }
         if(!user || user.password != password){
-            console.log('Invalid username/ password');
+            req.flash('error', 'Invalid Userrname/Password')
             //
             return done(null, false);
         }
