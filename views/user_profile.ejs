@@ -1,13 +1,14 @@
 <title> <%= title %> </title>
 <%- include('_header') -%>
 
-
+<img src=" <%= user.avatar %>" alt=" <%= user.name %>" width="100">
 
 <% if(user_profile.id == user.id) { %>
 
-    <form action="/users/update/<%= user_profile.id %>" method="POST">
+    <form action="/users/update/<%= user_profile.id %>"  enctype="multipart/form-data" method="POST">
         <input type="text" name="name" value="<%= user_profile.name %>" placeholder="Your name" required>
         <input type="email" name="email" value="<%= user_profile.email %>" placeholder="Your email" required>
+        <input type="file" name="avatar" placeholder="Profile Picture">
         <input type="submit" value="Update">
     </form>
     <% } else { %>

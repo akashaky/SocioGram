@@ -17,6 +17,7 @@ const customMWare = require('./config/middleware');
 app.set('view engine', 'ejs');
 app.set('views','./views');
 app.use(express.static('assests'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(express.urlencoded());
 
 
