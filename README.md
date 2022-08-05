@@ -98,3 +98,45 @@ I will be using 3 collections/tables for this purpose:-
 
 ```
 * Note that we may set isActive, isDeleted value as default value at time of creating the survey so I have not taken it in request.
+
+## Accepting answers
+```
+For short/one word answer
+{
+    "id": 1,
+    "questionId": 1,
+    "answer": "8" ,//  //note that this value will be stringified json. For short answerType we might parse it to integer if required 
+    "surevyId": 1,
+}
+
+For MCQ having single answer
+{
+    "id": 1,
+    "questionId": 1,
+    "answer": [{   //note that this value will be stringified json
+        "optionOrder": 2,
+        "lablel": "sample label"
+    }],
+    "surevyId": 1,
+}
+For MCQ having multiple answers
+{
+    "id": 1,
+    "questionId": 1,
+    "answer": [{   //note that this value will be stringified json
+        "optionOrder": 2,
+        "lablel": "sample label"
+    },
+    {
+        "optionOrder": 3,
+        "lablel": "sample label"
+    }],
+    "surevyId": 1,
+}
+
+```
+#Bonus question answer for part 1 only
+
+* We can create a get request that would be accepting encrypted surveyId and will be returing analytics for this
+* For this we can apply group by clause(based on surevyId and questionId) on answer table having join on questions table to obtain the data and may transform it to desirable response.
+* Alternatively, we can loop over questions table based on surveyId and for each questions we can obtain all the answers from the answer table.
